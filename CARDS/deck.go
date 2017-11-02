@@ -48,6 +48,7 @@ func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
 }
 
+//converted slice of strings to one string with toString function, then convert to byte slice in write file method
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
