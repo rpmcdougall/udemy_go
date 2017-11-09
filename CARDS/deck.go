@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 // Create a new typ of 'deck'
@@ -63,4 +65,18 @@ func newDeckFromFile(filename string) deck {
 
 	s := strings.Split(string(bs), ",")
 	return deck(s)
+}
+
+//generates random number up to length of slice -1
+func (d deck) shuffle() {
+	//Generate random seed
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPos := r.Intn(len(d) - 1)
+		//Swaps value at each new position and current index
+		d[i], d[newPos] = d[newPos], d[i]
+	}
+
 }
